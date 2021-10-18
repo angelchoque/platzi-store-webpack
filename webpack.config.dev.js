@@ -1,9 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
@@ -50,6 +47,10 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3001,
+    // open: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -59,7 +60,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
     }),
-    new CleanWebpackPlugin(),
     new ImageMinimizerPlugin({
       minimizerOptions: {
         plugins: [
@@ -68,11 +68,4 @@ module.exports = {
       },
     }),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CSSMinimizerPlugin(),
-      new TerserPlugin(),
-    ],
-  },
 };
