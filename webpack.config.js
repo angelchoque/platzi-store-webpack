@@ -13,7 +13,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -45,6 +45,11 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg)$/,
         type: 'asset',
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },

@@ -4,13 +4,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  // entry: ['react-hot-loader/patch', './src/index.js'],
+  entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -43,6 +44,11 @@ module.exports = {
         test: /\.(png|jpg|jpeg)$/,
         type: 'asset',
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
   devServer: {
@@ -51,6 +57,7 @@ module.exports = {
     compress: true,
     port: 3001,
     // open: true,
+    // hot: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -68,4 +75,9 @@ module.exports = {
       },
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
