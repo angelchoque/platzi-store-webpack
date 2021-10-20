@@ -5,10 +5,15 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
   // entry: ['react-hot-loader/patch', './src/index.js'],
-  entry: ['./src/index.js'],
+  // entry: ['./src/index.js'],
+  entry: {
+    home: './src/index.js',
+    header: './src/Header/index.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
   },
   resolve: {
     extensions: ['.tsx', '.js', '.jsx'],
